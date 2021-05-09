@@ -1,0 +1,57 @@
+{
+  "name": "mdx-editor",
+  "description": "A WYSIWYG MDX Editor for your projects.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "ScottAgirs <scott@ijs.to> (@scottagirs)",
+  "repository": "https://github.com/ijsto/mdx-editor",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepare": "babel src -d dist"
+  },
+  "keywords": [
+    "mdx",
+    "richtext",
+    "mdx-editor",
+    "mdx-richtext",
+    "richtext editor"
+  ],
+  "dependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-react": "^7.13.13",
+    "@convertkit/slate-lists": "^0.2.2",
+    "@emotion/core": "^10.0.10",
+    "@emotion/styled": "^10.0.10",
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
+    "@mdx-rich/components": "*",
+    "@mdx-rich/serializer": "*",
+    "@reach/alert-dialog": "^0.2.3",
+    "@reach/menu-button": "^0.1.17",
+    "@slate-editor/utils": "^5.1.0",
+    "@styled-system/edit": "^0.0.4",
+    "commitizen": "^4.2.4",
+    "emotion-theming": "^10.0.10",
+    "escape-string-regexp": "^2.0.0",
+    "image-extensions": "^1.1.0",
+    "immutable": "^4.0.0-rc.12",
+    "is-url": "^1.2.4",
+    "lodash.omit": "^4.5.0",
+    "raw-loader": "^2.0.0",
+    "react": "^17.0.2",
+    "react-live": "^2.0.1",
+    "react-simple-icons": "^1.0.0-beta.5",
+    "slate": "0.45.1",
+    "slate-deep-table": "^0.9.7",
+    "slate-react": "^0.21.20",
+    "slate-soft-break": "^0.9.0",
+    "theme-ui": "^0.0.10"
+  },
+  "devDependencies": {
+    "@ijsto/eslint-config": "4.1.3",
+    "eslint": "^7.25.0"
+  }
+}
