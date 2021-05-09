@@ -1,39 +1,39 @@
-import React from 'react'
-import { Styled } from 'theme-ui'
+import React from 'react';
+import { Themed } from 'theme-ui';
 
 export default (props, editor, next) => {
-  const { node, attributes, children } = props
+  const { node, attributes, children } = props;
 
   switch (node.type) {
     case 'block-quote':
-      return <Styled.blockquote {...attributes}>{children}</Styled.blockquote>
+      return <Themed.blockquote {...attributes}>{children}</Themed.blockquote>;
     case 'bulleted-list':
-      return <Styled.ul {...attributes}>{children}</Styled.ul>
+      return <Themed.ul {...attributes}>{children}</Themed.ul>;
     case 'numbered-list':
-      return <Styled.ol {...attributes}>{children}</Styled.ol>
+      return <Themed.ol {...attributes}>{children}</Themed.ol>;
     case 'list-item':
-      return <Styled.li {...attributes}>{children}</Styled.li>
+      return <Themed.li {...attributes}>{children}</Themed.li>;
     case 'list-item-child':
-      return <Styled.p {...attributes}>{children}</Styled.p>
+      return <Themed.p {...attributes}>{children}</Themed.p>;
     case 'heading-one':
-      return <Styled.h1 {...attributes}>{children}</Styled.h1>
+      return <Themed.h1 {...attributes}>{children}</Themed.h1>;
     case 'heading-two':
-      return <Styled.h2 {...attributes}>{children}</Styled.h2>
+      return <Themed.h2 {...attributes}>{children}</Themed.h2>;
     case 'heading-three':
-      return <Styled.h3 {...attributes}>{children}</Styled.h3>
+      return <Themed.h3 {...attributes}>{children}</Themed.h3>;
     case 'heading-four':
-      return <Styled.h4 {...attributes}>{children}</Styled.h4>
+      return <Themed.h4 {...attributes}>{children}</Themed.h4>;
     case 'heading-five':
-      return <Styled.h5 {...attributes}>{children}</Styled.h5>
+      return <Themed.h5 {...attributes}>{children}</Themed.h5>;
     case 'heading-six':
-      return <Styled.h6 {...attributes}>{children}</Styled.h6>
+      return <Themed.h6 {...attributes}>{children}</Themed.h6>;
     case 'list-item':
-      return <Styled.li {...attributes}>{children}</Styled.li>
+      return <Themed.li {...attributes}>{children}</Themed.li>;
     case 'paragraph':
-      return <Styled.p {...attributes}>{children}</Styled.p>
+      return <Themed.p {...attributes}>{children}</Themed.p>;
     case 'hr':
-      return <Styled.hr {...attributes} />
+      return <Themed.hr {...attributes} />;
     default:
-      return next()
+      return next();
   }
-}
+};

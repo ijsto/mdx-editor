@@ -1,27 +1,26 @@
 /** @jsx jsx */
-import { useState } from 'react'
-import { jsx } from '@emotion/core'
-import { Styled, css } from 'theme-ui'
-import { Flex, Box } from 'theme-ui'
-import { Card, Label, Input, Button } from '../../components/ui'
+import { useState } from 'react';
+import { jsx } from '@emotion/core';
+import { Themed, css, Flex, Box } from 'theme-ui';
+import { Card, Label, Input, Button } from '../../components/ui';
 
 const Form = ({ node, editor }) => {
-  const title = node.data.get('title') || ''
-  const href = node.data.get('href') || ''
+  const title = node.data.get('title') || '';
+  const href = node.data.get('href') || '';
   const onSubmit = data => {
-    editor.setNodeByKey(node.key, { data }).deselect()
-  }
-  const [state, setState] = useState({ title, href })
+    editor.setNodeByKey(node.key, { data }).deselect();
+  };
+  const [state, setState] = useState({ title, href });
 
   return (
     <Card contentEditable={false}>
       <form
         onClick={e => {
-          e.stopPropagation()
+          e.stopPropagation();
         }}
         onSubmit={e => {
-          e.preventDefault()
-          onSubmit(state)
+          e.preventDefault();
+          onSubmit(state);
         }}
       >
         <Flex alignItems="flex-end">
@@ -32,7 +31,7 @@ const Form = ({ node, editor }) => {
               name="href"
               value={state.href}
               onChange={e => {
-                setState({ ...state, href: e.target.value })
+                setState({ ...state, href: e.target.value });
               }}
             />
           </Label>
@@ -43,7 +42,7 @@ const Form = ({ node, editor }) => {
               name="title"
               value={state.title}
               onChange={e => {
-                setState({ ...state, title: e.target.value })
+                setState({ ...state, title: e.target.value });
               }}
             />
           </Label>
@@ -52,7 +51,7 @@ const Form = ({ node, editor }) => {
             css={css({
               bg: 'red',
               color: 'white',
-              ml: 2
+              ml: 2,
             })}
             onClick={() => editor.unwrapLink()}
           >
@@ -62,15 +61,15 @@ const Form = ({ node, editor }) => {
       </form>
 
       <Box fontSize={1} mt={2}>
-        <Styled.p>
+        <Themed.p>
           Open link:{' '}
-          <Styled.a href={state.href} target="_blank">
+          <Themed.a href={state.href} target="_blank">
             {state.href}
-          </Styled.a>
-        </Styled.p>
+          </Themed.a>
+        </Themed.p>
       </Box>
     </Card>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;

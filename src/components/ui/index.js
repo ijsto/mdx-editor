@@ -1,4 +1,4 @@
-export { Styled, css } from 'theme-ui';
+export { Themed, css } from 'theme-ui';
 
 export { default as ListView } from './ListView';
 export { default as Pre } from './Pre';

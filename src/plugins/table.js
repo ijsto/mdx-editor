@@ -1,18 +1,18 @@
-import React from 'react'
-import { Styled } from 'theme-ui'
+import React from 'react';
+import { Themed } from 'theme-ui';
 
 export default (opts = {}) => ({
   renderNode: (props, editor, next) => {
-    const { node, attributes, children } = props
+    const { node, attributes, children } = props;
 
     switch (node.type) {
       case 'table':
         return (
-          <Styled.table
+          <Themed.table
             style={{
               width: '100%',
               borderCollapse: 'collapse',
-              borderSpacing: 0
+              borderSpacing: 0,
             }}
           >
             <tbody {...attributes}>
@@ -21,35 +21,35 @@ export default (opts = {}) => ({
                 <td>
                   <span
                     onClick={() => {
-                      editor.insertRow()
+                      editor.insertRow();
                     }}
                   >
                     + Add row
                   </span>
                   <span
                     onClick={() => {
-                      editor.insertColumn()
+                      editor.insertColumn();
                     }}
                   >
                     + Add column
                   </span>
                   <span
                     onClick={() => {
-                      editor.removeRow()
+                      editor.removeRow();
                     }}
                   >
                     - Remove row
                   </span>
                   <span
                     onClick={() => {
-                      editor.removeColumn()
+                      editor.removeColumn();
                     }}
                   >
                     - Remove column
                   </span>
                   <span
                     onClick={() => {
-                      editor.removeTable()
+                      editor.removeTable();
                     }}
                   >
                     - Remove table
@@ -57,18 +57,18 @@ export default (opts = {}) => ({
                 </td>
               </tr>
             </tbody>
-          </Styled.table>
-        )
+          </Themed.table>
+        );
       case 'table_row':
-        return <Styled.tr {...attributes}>{children}</Styled.tr>
+        return <Themed.tr {...attributes}>{children}</Themed.tr>;
       case 'table_cell':
         return (
-          <Styled.td style={{ border: 'thin solid silver' }} {...attributes}>
+          <Themed.td style={{ border: 'thin solid silver' }} {...attributes}>
             {children}
-          </Styled.td>
-        )
+          </Themed.td>
+        );
       default:
-        return next()
+        return next();
     }
-  }
-})
+  },
+});
