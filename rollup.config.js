@@ -22,7 +22,11 @@ export default {
     }),
     // CommonJS Must be after babel.
     // https://github.com/rollup/plugins/tree/master/packages/babel#using-with-rollupplugin-commonjs
-    commonjs(),
+    commonjs({
+      namedExports: {
+        [`${__dirname}/node_modules/esrever/esrever.js`]: ['reverse'],
+      },
+    }),
     nodeResolve(),
     json(),
   ],
