@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Editor, getEventRange, getEventTransfer } from 'slate-react';
-import { ThemeProvider } from 'theme-ui';
+// import { ThemeProvider } from 'theme-ui';
 
 import { parseMDX, serializer } from '@mdx-rich/serializer/src';
 import schema from '../lib/schema';
 import { isUrl, isImageUrl } from '../lib/util';
 
-import { Context } from './context';
+// import { Context } from './context';
 import defaultTheme from './theme';
 import defaultPlugins from '../plugins';
 import defaultBlocks from './blocks';
@@ -60,11 +60,11 @@ const BlockEditor = props => {
     switch (event.key) {
       case '/':
         setState({ commandMenu: true });
-        return;
+        return null;
       case 'Escape':
         setState({ emojiMenu: false });
         setState({ menu: false });
-        return;
+        return null;
       default:
         return next();
     }
@@ -105,27 +105,27 @@ const BlockEditor = props => {
     ...defaultBlocks,
     ...components,
   };
-  const context = {
-    components: allComponents,
-  };
+  // const context = {
+  //   components: allComponents,
+  // };
 
   return (
     <div style={{ minHeight: '100vh' }}>
-      <Context.Provider value={context}>
-        <Editor
-          {...props}
-          ref={editor => (editor = editor)}
-          components={allComponents}
-          theme={theme}
-          schema={schema}
-          placeholder="Write some MDX..."
-          plugins={plugins}
-          value={state.value}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          onPaste={handlePaste}
-        />
-      </Context.Provider>
+      {/* <Context.Provider value={context}> */}
+      <Editor
+        {...props}
+        ref={editor => editor}
+        components={allComponents}
+        theme={theme}
+        schema={schema}
+        placeholder="Write some MDX..."
+        plugins={plugins}
+        value={state.value}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onPaste={handlePaste}
+      />
+      {/* </Context.Provider> */}
     </div>
   );
 };
@@ -136,10 +136,13 @@ BlockEditor.defaultProps = {
   renderEditor: (props, editor, next) => {
     const children = next();
     return (
-      <ThemeProvider theme={props.theme}>
+      // @QUESTION: What's the idea here?
+      // <ThemeProvider theme={props.theme}>
+      <>
         <Toolbar {...props} editor={editor} />
         {children}
-      </ThemeProvider>
+      </>
+      // </ThemeProvider>
     );
   },
   theme: defaultTheme,
