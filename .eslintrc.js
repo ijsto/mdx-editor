@@ -7,6 +7,9 @@ module.exports = {
   rules: {
     'arrow-body-style': 0,
     'react/jsx-curly-newline': 0,
+    // ___ Theme-UI
+    // eslint-disable-next-line sort-keys
+    'react/jsx-pascal-case': 0,
     // ___ REACT
     // eslint-disable-next-line sort-keys
     'react/destructuring-assignment': 0,

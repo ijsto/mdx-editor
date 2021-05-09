@@ -1,21 +1,21 @@
-import React from 'react'
-import { Styled } from 'theme-ui'
+import React from 'react';
+import { Themed } from 'theme-ui';
 
 export default (props, editor, next) => {
-  const { mark, attributes, children } = props
+  const { mark, attributes, children } = props;
 
   switch (mark.type) {
     case 'bold':
-      return <Styled.strong {...attributes}>{children}</Styled.strong>
+      return <Themed.strong {...attributes}>{children}</Themed.strong>;
     case 'code':
-      return <Styled.inlineCode {...attributes}>{children}</Styled.inlineCode>
+      return <Themed.inlineCode {...attributes}>{children}</Themed.inlineCode>;
     case 'italic':
-      return <Styled.em {...attributes}>{children}</Styled.em>
+      return <Themed.em {...attributes}>{children}</Themed.em>;
     case 'underlined':
-      return <u {...attributes}>{children}</u>
+      return <u {...attributes}>{children}</u>;
     case 'strikethrough':
-      return <s {...attributes}>{children}</s>
+      return <s {...attributes}>{children}</s>;
     default:
-      return next()
+      return next();
   }
-}
+};
