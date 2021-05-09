@@ -1,35 +1,34 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core'
-import React, { useContext } from 'react'
-import { LiveProvider, LivePreview, LiveContext } from 'react-live'
-import ErrorIcon from '@material-ui/icons/ErrorOutline'
-import { Context as ThemeContext, css } from 'theme-ui'
-import { Flex } from 'theme-ui'
-import omit from 'lodash.omit'
-import { Pre } from '../components/ui'
+import { jsx } from '@emotion/core';
+import React, { useContext } from 'react';
+import { LiveProvider, LivePreview, LiveContext } from 'react-live';
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
+import { Context as ThemeProvider, css, Flex } from 'theme-ui';
+import omit from 'lodash.omit';
+import { Pre } from '../components/ui';
 
-const omitComponents = ['delete']
+const omitComponents = ['delete'];
 
 const ErrorMessage = props => {
-  const context = useContext(LiveContext)
+  const context = useContext(LiveContext);
   return (
     <div {...props} title={context.error}>
       <ErrorIcon
         style={{
-          color: !!context.error ? 'red' : 'gray'
+          color: context.error ? 'red' : 'gray',
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-const transform = code => `<>${code}</>`
+const transform = code => `<>${code}</>`;
 
 const LiveJSX = ({ code, attributes, children }) => {
-  const theme = useContext(ThemeContext)
+  const theme = useContext(ThemeContext);
   const scope = {
-    ...omit(theme.components, omitComponents)
-  }
+    ...omit(theme.components, omitComponents),
+  };
   return (
     <div>
       <LiveProvider scope={scope} transformCode={transform} code={code}>
@@ -37,37 +36,37 @@ const LiveJSX = ({ code, attributes, children }) => {
         <Flex
           alignItems="center"
           css={{
-            width: '100%'
+            width: '100%',
           }}
         >
           <Pre
             {...attributes}
             css={{
-              width: '100%'
+              width: '100%',
             }}
           >
             {children}
           </Pre>
           <ErrorMessage
             css={css({
-              ml: -32
+              ml: -32,
             })}
           />
         </Flex>
       </LiveProvider>
     </div>
-  )
-}
+  );
+};
 
-const toggleJSX = editor => editor.toggleBlock('jsx')
+const toggleJSX = editor => editor.toggleBlock('jsx');
 
 export default (opts = {}) => ({
   commands: {
-    toggleJSX
+    toggleJSX,
   },
   renderNode: (props, editor, next) => {
-    const { node, attributes, children } = props
-    if (node.type !== 'jsx') return next()
+    const { node, attributes, children } = props;
+    if (node.type !== 'jsx') return next();
 
     return (
       <LiveJSX
@@ -75,6 +74,6 @@ export default (opts = {}) => ({
         code={node.getText()}
         children={children}
       />
-    )
-  }
-})
+    );
+  },
+});
