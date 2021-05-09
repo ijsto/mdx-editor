@@ -1,95 +1,96 @@
-import { Mark, Point, Range } from 'slate'
-import { getTypeFromMarkdown, isAllChar } from '../lib/util'
+import { Mark, Point, Range } from 'slate';
+import { getTypeFromMarkdown, isAllChar } from '../lib/util';
 
 const handleSpace = (event, editor) => {
-  const { value } = editor
-  const { selection } = value
-  if (selection.isExpanded) return
+  const { value } = editor;
+  const { selection } = value;
+  if (selection.isExpanded) return null;
 
-  const { startBlock } = value
-  const { start } = selection
+  const { startBlock } = value;
+  const { start } = selection;
 
-  const chars = startBlock.text.slice(0, start.offset).replace(/\s*/g, '')
-  const type = getTypeFromMarkdown(chars)
+  const chars = startBlock.text.slice(0, start.offset).replace(/\s*/g, '');
+  const type = getTypeFromMarkdown(chars);
 
-  if (!type) return
+  if (!type) return null;
 
   if (type === 'bulleted-list-item') {
     return editor
       .wrapList({ type: 'bulleted-list' })
       .moveFocusToStartOfNode(startBlock)
-      .delete()
-  } else if (type === 'numbered-list-item') {
+      .delete();
+  }
+  if (type === 'numbered-list-item') {
     return editor
       .wrapList({ type: 'numbered-list' })
       .moveFocusToStartOfNode(startBlock)
-      .delete()
+      .delete();
   }
 
   if (type === 'pre') {
-    event.preventDefault()
-    startBlock.nodes.forEach(node => editor.removeNodeByKey(node.key))
-    editor.insertBlock('pre')
-    return
+    event.preventDefault();
+    startBlock.nodes.forEach(node => editor.removeNodeByKey(node.key));
+    editor.insertBlock('pre');
+    return null;
   }
 
-  event.preventDefault()
+  event.preventDefault();
 
   if (type === 'hr') {
-    editor.moveFocusToStartOfNode(startBlock).delete()
-    editor.insertBlock('hr')
-    return
+    editor.moveFocusToStartOfNode(startBlock).delete();
+    editor.insertBlock('hr');
+    return null;
   }
 
   if (type === 'block-quote') {
     return editor
       .moveFocusToStartOfNode(startBlock)
       .delete()
-      .wrapBlock('block-quote')
+      .wrapBlock('block-quote');
   }
 
-  editor.setBlocks(type)
+  editor.setBlocks(type);
 
-  editor.moveFocusToStartOfNode(startBlock).delete()
-  return true
-}
+  editor.moveFocusToStartOfNode(startBlock).delete();
+  return true;
+};
 
 const handleInlineMark = (event, editor, next, { character, type }) => {
-  const { texts, selection } = editor.value
-  const currentTextNode = texts.get(0)
-  const currentLineText = currentTextNode.text
+  const { texts, selection } = editor.value;
+  const currentTextNode = texts.get(0);
+  const currentLineText = currentTextNode.text;
 
   if (isAllChar(character, currentLineText)) {
-    return next()
+    return next();
   }
 
   const [other, remainder] = currentLineText.startsWith(character)
     ? ['', currentLineText.replace(character, '')]
-    : currentLineText.split(character)
+    : currentLineText.split(character);
 
   if (remainder) {
-    const offset = selection.focus.offset
-    const isBackwards = offset < other.length
+    const { offset } = selection.focus;
+    const isBackwards = offset < other.length;
     const inlineCode = isBackwards
       ? other.slice(offset)
-      : remainder.slice(0, offset - other.length - 1)
+      : remainder.slice(0, offset - other.length - 1);
 
-    event.preventDefault()
+    event.preventDefault();
 
     const anchor = Point.create({
       key: currentTextNode.key,
+      offset: isBackwards ? offset : other.length,
       path: currentTextNode.path,
-      offset: isBackwards ? offset : other.length
-    })
+    });
     const focus = Point.create({
       key: currentTextNode.key,
+      offset: isBackwards ? other.length + 1 : offset,
       path: currentTextNode.path,
-      offset: isBackwards ? other.length + 1 : offset
-    })
+    });
     const range = Range.create({
       anchor,
-      focus
-    })
+      focus,
+    });
 
     return editor
       .deleteAtRange(range)
@@ -99,82 +100,81 @@ const handleInlineMark = (event, editor, next, { character, type }) => {
         inlineCode,
         [Mark.create({ type })]
       )
-      .command(editor =>
-        editor.value.marks.forEach(mark => {
-          editor.removeMark(mark)
+      .command(commandOnEditor =>
+        commandOnEditor.value.marks.forEach(mark => {
+          commandOnEditor.removeMark(mark);
         })
-      )
+      );
   }
 
-  next()
-}
+  return next();
+};
 
 const handleBackspace = (event, editor, next) => {
-  const { value } = editor
-  const { selection } = value
+  const { value } = editor;
+  const { selection } = value;
 
   if (selection.isExpanded) {
-    return next()
+    return next();
   }
 
   if (selection.start.offset !== 0) {
-    return next()
+    return next();
   }
 
-  const { startBlock } = value
+  const { startBlock } = value;
   if (startBlock.type === 'paragraph') {
-    return next()
+    return next();
   }
 
-  event.preventDefault()
-  editor.setBlocks('paragraph')
+  event.preventDefault();
+  editor.setBlocks('paragraph');
 
-  return next()
-}
+  return next();
+};
 
 const handleEnter = (event, editor, next) => {
-  const { value } = editor
-  const { selection } = value
-  const { start, end, isExpanded } = selection
-  if (isExpanded) return
+  const { value } = editor;
+  const { selection } = value;
+  const { start, end, isExpanded } = selection;
+  if (isExpanded) return null;
 
-  const { startBlock } = value
+  const { startBlock } = value;
 
   if (startBlock.type === 'pre' || startBlock.type === 'jsx') {
-    return editor.insertText('\n')
+    return editor.insertText('\n');
   }
 
   // Enter was pressed with no content, reset the node to be an empty paragraph
   if (start.offset === 0 && startBlock.text.length === 0) {
-    return handleBackspace(event, editor, next)
+    return handleBackspace(event, editor, next);
   }
 
   // The cursor is at the beginning of the line of a node with text. We should insert
   // a new node before the current one.
   if (end.offset === 0 && startBlock.text.length !== 0) {
-    return editor.insertBlock('paragraph')
+    return editor.insertBlock('paragraph');
   }
 
   if (end.offset !== startBlock.text.length) {
-    return editor.splitBlock().setBlocks('paragraph')
+    return editor.splitBlock().setBlocks('paragraph');
   }
 
   // Started a code/jsx/hr block
-  const type = getTypeFromMarkdown(startBlock.text)
+  const type = getTypeFromMarkdown(startBlock.text);
   if (type === 'pre' || type === 'jsx') {
-    return editor
-      .setBlocks(type)
-      .moveFocusToStartOfNode(startBlock)
-      .delete()
-  } else if (type === 'hr') {
+    return editor.setBlocks(type).moveFocusToStartOfNode(startBlock).delete();
+  }
+  if (type === 'hr') {
     return editor
       .moveFocusToStartOfNode(startBlock)
       .delete()
       .setBlocks('hr')
-      .insertBlock('paragraph')
-  } else if (type === 'table') {
-    editor.moveFocusToStartOfNode(startBlock).delete()
-    return editor.editor.insertTable()
+      .insertBlock('paragraph');
+  }
+  if (type === 'table') {
+    editor.moveFocusToStartOfNode(startBlock).delete();
+    return editor.editor.insertTable();
   }
 
   if (
@@ -186,47 +186,47 @@ const handleEnter = (event, editor, next) => {
     startBlock.type !== 'heading-six' &&
     startBlock.type !== 'block-quote'
   ) {
-    return next()
+    return next();
   }
 
-  event.preventDefault()
-  editor.splitBlock().setBlocks('paragraph')
-}
+  event.preventDefault();
+  return editor.splitBlock().setBlocks('paragraph');
+};
 
 // Soft tabs
 const handleTab = (event, editor) => {
-  event.preventDefault()
-  return editor.insertText('  ')
-}
+  event.preventDefault();
+  return editor.insertText('  ');
+};
 
-export default (opts = {}) => ({
+export default () => ({
   onKeyDown: (event, editor, next) => {
     switch (event.key) {
       case ' ':
-        return handleSpace(event, editor)
+        return handleSpace(event, editor);
       case '`':
         return handleInlineMark(event, editor, next, {
           character: '`',
-          type: 'code'
-        })
+          type: 'code',
+        });
       case '*':
         return handleInlineMark(event, editor, next, {
           character: '*',
-          type: 'bold'
-        })
+          type: 'bold',
+        });
       case '_':
         return handleInlineMark(event, editor, next, {
           character: '_',
-          type: 'italic'
-        })
+          type: 'italic',
+        });
       case 'Backspace':
-        return handleBackspace(event, editor, next)
+        return handleBackspace(event, editor, next);
       case 'Enter':
-        return handleEnter(event, editor, next)
+        return handleEnter(event, editor, next);
       case 'Tab':
-        return handleTab(event, editor, next)
+        return handleTab(event, editor, next);
       default:
-        return next()
+        return next();
     }
-  }
-})
+  },
+});
