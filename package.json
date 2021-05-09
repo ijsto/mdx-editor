@@ -1,7 +1,7 @@
 {
   "name": "mdx-editor",
   "description": "A WYSIWYG MDX Editor for your projects.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "author": "ScottAgirs <scott@ijs.to> (@scottagirs)",
   "repository": "https://github.com/ijsto/mdx-editor",
@@ -36,7 +36,7 @@
     "immutable": "^4.0.0-rc.12",
     "is-url": "^1.2.4",
     "lodash.omit": "^4.5.0",
-    "mdx-serializer": "0.0.1",
+    "mdx-serializer": "^0.0.2",
     "react": "^17.0.2",
     "react-live": "^2.2.3",
     "react-simple-icons": "^1.0.0-beta.5",
