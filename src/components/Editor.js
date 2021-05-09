@@ -12,7 +12,7 @@ import defaultPlugins from '../plugins';
 import defaultBlocks from './blocks';
 import Toolbar from './Toolbar';
 
-const initialValue = '# Welcome to Blocks!';
+const initialValue = '# Welcome to Blocks! Papoit, Editor!?';
 
 const insertImage = (change, src, target) => {
   if (target) {
