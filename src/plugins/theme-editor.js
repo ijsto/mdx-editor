@@ -2,23 +2,9 @@
 import { useState } from 'react'
 import { ThemeProvider, css } from 'theme-ui'
 import { jsx, Global } from '@emotion/react'
-import { EditProvider, FieldSet } from '@styled-system/edit'
 
 import ColorFillIcon from '@material-ui/icons/FormatColorFill'
 import CloseIcon from '@material-ui/icons/Close'
-
-const demoFonts = [
-  'system-ui, sans-serif',
-  '"Avenir Next", sans-serif',
-  'Georgia, serif',
-  'Baskerville, serif',
-  'Menlo, monospace',
-  'Roboto, sans-serif',
-  '"Roboto Condensed", sans-serif',
-  'Poppins, sans-serif',
-  'Montserrat, sans-serif',
-  'Merriweather, serif'
-]
 
 const IconButton = props => (
   <button
@@ -71,22 +57,7 @@ const ThemeEditor = props => {
           bg: '#f6f6fc'
         })}
       >
-        <FieldSet name="colors" type="color" />
-        <FieldSet name="fonts" type="select" options={demoFonts} />
-        <FieldSet
-          name="fontWeights"
-          type="number"
-          step="100"
-          min="100"
-          max="900"
-        />
-        <FieldSet
-          name="lineHeights"
-          type="number"
-          step={1 / 16}
-          min={1}
-          max={2}
-        />
+       Fieldsets were once here, but now they're not.
       </div>
       <IconButton
         title="Close Theme Editor"
@@ -107,7 +78,6 @@ export default (opts = {}) => ({
 
     return (
       <ThemeProvider components={components} theme={theme}>
-        <EditProvider>
           {children}
           {null && <ThemeEditor />}
           <Global
@@ -127,7 +97,6 @@ export default (opts = {}) => ({
               }
             })}
           />
-        </EditProvider>
       </ThemeProvider>
     )
   }
