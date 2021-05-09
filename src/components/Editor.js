@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Editor, getEventRange, getEventTransfer } from 'slate-react';
 // import { ThemeProvider } from 'theme-ui';
 
-import { parseMDX, serializer } from '@mdx-rich/serializer/src';
+import { parseMDX, serializer } from 'mdx-serializer/src';
 import schema from '../lib/schema';
 import { isUrl, isImageUrl } from '../lib/util';
 
