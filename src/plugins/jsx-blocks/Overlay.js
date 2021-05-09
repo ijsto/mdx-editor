@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/react';
 
 export default props => (
   <div
@@ -9,7 +9,7 @@ export default props => (
       top: 0,
       right: 0,
       left: 0,
-      bottom: 0
+      bottom: 0,
     }}
   />
-)
+);

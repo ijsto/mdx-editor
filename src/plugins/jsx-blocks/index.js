@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 // eslint-disable-next-line no-unused-vars
 import React, { useContext } from 'react';
 import { Data } from 'slate';

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState } from 'react'
 import { ThemeProvider, css } from 'theme-ui'
-import { jsx, Global } from '@emotion/core'
+import { jsx, Global } from '@emotion/react'
 import { EditProvider, FieldSet } from '@styled-system/edit'
 
 import ColorFillIcon from '@material-ui/icons/FormatColorFill'

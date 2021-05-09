@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { css } from 'theme-ui';
 
 // todo: figure out the best package for React material icons

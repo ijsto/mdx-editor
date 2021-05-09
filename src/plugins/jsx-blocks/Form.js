@@ -1,22 +1,22 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useState } from 'react'
-import { Flex } from 'theme-ui'
+import { jsx } from '@emotion/react';
+import { useState } from 'react';
+import { Flex } from 'theme-ui';
 
-import { Label, Input, Button } from '../../components/ui'
+import { Label, Input, Button } from '../../components/ui';
 
 export default ({ fields, value, onSubmit }) => {
-  const [state, setState] = useState(value)
-  const keys = Object.keys(fields)
+  const [state, setState] = useState(value);
+  const keys = Object.keys(fields);
   return (
     <form
       contentEditable={false}
       onClick={e => {
-        e.stopPropagation()
+        e.stopPropagation();
       }}
       onSubmit={e => {
-        e.preventDefault()
-        onSubmit(state)
+        e.preventDefault();
+        onSubmit(state);
       }}
     >
       <Flex flexWrap="wrap" alignItems="flex-end">
@@ -28,12 +28,12 @@ export default ({ fields, value, onSubmit }) => {
               name={key}
               value={state[key] || ''}
               onChange={e => {
-                const format = fields[key].formatValue
+                const format = fields[key].formatValue;
                 const value =
                   typeof format === 'function'
                     ? format(e.target.value)
-                    : e.target.value
-                setState({ ...state, [key]: value })
+                    : e.target.value;
+                setState({ ...state, [key]: value });
               }}
             />
           </Label>
@@ -41,5 +41,5 @@ export default ({ fields, value, onSubmit }) => {
         <Button>Apply</Button>
       </Flex>
     </form>
-  )
-}
+  );
+};

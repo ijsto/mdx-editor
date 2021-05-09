@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import { jsx, Global } from '@emotion/core';
+import { jsx, Global } from '@emotion/react';
 import { css } from 'theme-ui';
 import { Menu, MenuButton, MenuList, MenuItem } from '@reach/menu-button';
 
