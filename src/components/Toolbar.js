@@ -14,7 +14,7 @@ import CodeIcon from '@material-ui/icons/Code';
 import ListIcon from '@material-ui/icons/FormatListBulleted';
 import NumberedListIcon from '@material-ui/icons/FormatListNumbered';
 import HorizontalSplitIcon from '@material-ui/icons/HorizontalSplit';
-import { Dropdown } from './ui';
+// import { Dropdown } from './ui';
 
 // "icons"
 const B = props => (
@@ -29,7 +29,7 @@ const B = props => (
 );
 const H1 = () => <B>H1</B>;
 const H2 = () => <B>H2</B>;
-const JSX = () => <B>JSX</B>;
+// const JSX = () => <B>JSX</B>;
 // const Gist = () => <B>GIST</B>;
 
 const Context = React.createContext(null);
@@ -51,7 +51,7 @@ const Root = props => (
     {...props}
     css={css({
       alignItems: 'center',
-      backgroundColor: 'white',
+      backgroundColor: 'transparent',
       borderBottom: '1px solid',
       borderColor: 'gray',
       display: 'flex',
@@ -157,35 +157,36 @@ const defaultChildren = (
     <Button title="Numbered List" nodeType="numbered-list">
       <NumberedListIcon />
     </Button>
-    <Button title="JSX" nodeType="jsx" insert>
+    {/* <Button title="JSX" nodeType="jsx" insert>
       <JSX />
-    </Button>
+    </Button> */}
   </>
 );
 
-const getBlockComponentNames = components =>
-  Object.keys(components).filter(
-    key => typeof components[key].propertyControls === 'object'
-  );
+// const getBlockComponentNames = components =>
+//   Object.keys(components).filter(
+//     key => typeof components[key].propertyControls === 'object'
+//   );
 
 const Toolbar = props => {
-  const { editor, children, components } = props;
+  // const { editor, children, components } = props;
+  const { editor, children } = props;
 
-  const blocks = getBlockComponentNames(components);
+  // const blocks = getBlockComponentNames(components);
 
   return (
     <Context.Provider value={{ editor }}>
       <Root>
         {children}
         <Spacer />
-        <Separator />
-        <Dropdown
+        {/* <Separator /> */}
+        {/* <Dropdown
           label="Insert Block"
           onSelect={item => {
             editor.insertJSXBlock(item, {}, components[item]);
           }}
           options={blocks}
-        />
+        /> */}
       </Root>
     </Context.Provider>
   );
