@@ -1,9 +1,8 @@
-# MDX Editor
+# Slate <> Rollup <> esrever (Reverse) Build problem
 
-MDX WYSIWYG Editor
+> This is related to `namedExports`
 
-# **DISCLAIMER**
+To reproduce:
 
-_This package is currently in development mode and should not be used in production. You should only use it if you'd like to play around and contribute to the first public Alpha version._
-
-<!-- TODO: -->
+1. `yarn install`
+2. `yarn prepare`
